@@ -1,24 +1,35 @@
 <?php
-require '../models/AlbumModel.php';
+require (APP_ROOT.'/app/models/AlbumModel.php');
 
 class AlbumController
 {
-    // Methode qui permet d'ajouter des albums dans la base de données
-    public function addAlbumLi()
+    
+    public function home()
     {
+        $albums = AlbumModel::getAlbums();
+        //Affiche la liste de tous les albums
+        require( APP_ROOT.'/app/views/home.phtml');
     }
-    // Methode qui permet de recuperer dans la base de données
-    public function getAlbums()
-    {
+    public function create(){
+        // Afficher le formulaire de création d'album
     }
-    // Methode qui permet d'ajouter dans la base de données
-    public function updateAlbums()
-    {
+    public function store($title, $artiste){
+        // Afficher la liste de tous les albums
+        AlbumModel::addAlbum($title, $artiste);
     }
-    // Methode qui permet d'ajouter dans la base de données
-    public function delateAlbums()
-    {
+    public function show($id){
+        // 
     }
+    public function edit($id){
+        // 
+    }
+    public function update($title, $artiste){
+        // 
+    }
+    public function destroy($id){
+        // 
+    }
+
 
 }
 
