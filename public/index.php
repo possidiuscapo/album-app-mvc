@@ -18,7 +18,6 @@ if($queryString){
 
 if($request === '/'){
     $controller->home();
-
 }else{
     echo ' ';
     require(APP_ROOT . '/app/views/pageNotFound.phtml');

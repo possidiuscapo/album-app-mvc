@@ -1,23 +1,23 @@
 <?php
 // require "../config/config.php";
+require (APP_ROOT.'/config/config.php"');
 class AlbumModel
 {
 
     private static function getConnexion()
     {
-        global $db_host, $db_name, $db_username, $db_password;
+        global $db_host, $db_port, $db_name, $db_username, $db_password, $options;
         try {
-            $options = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ];
-            $dsn = "mysql:host=$db_host;dbname=$db_name;";
+            $dsn = "mysql:host=$db_host;port=$db_port;dbname=$db_name;";
 
             $db = new PDO($dsn, $db_username, $db_password, $options);
             // var_dump($db);
             return $db;
         } catch (\PDOException $error) {
-            echo 'Erreur :' . $error->getMessage() .' à la ligne '.$error->getLine();
+            echo 'Erreur : ' . $error->getMessage() .' à la ligne '.$error->getLine();
+            // echo '<pre>';
+            // print_r($error);
+            // echo '<\pre>';
         }
     }
 
@@ -31,7 +31,7 @@ class AlbumModel
                 $sql = "INSERT INTO albums (title, artiste) VALUES (:title,:artiste) ";
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam(':title', $title);
-                $stmt->bindParam(':artise', $artist);
+                $stmt->bindParam(':artiste', $artist);
                 $stmt->execute();
                 return true;
             } catch (\PDOException $err) {

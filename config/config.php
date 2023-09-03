@@ -1,7 +1,8 @@
 <?php
 
-$db_name = "album_app_music";
 $db_host = "localhost";
+$db_port = "3306";
+$db_name = "album_app_music";
 $db_username = "root";
 $db_password = "";
 $options = [
@@ -10,7 +11,7 @@ $options = [
 ];
 
 
-
+ 
 ?>
 <!-- C:\_programme\laragon-6.0.0\bin;
 C:\_programme\laragon-6.0.0\bin\apache\httpd-2.4.57-win64-VS17\bin;
