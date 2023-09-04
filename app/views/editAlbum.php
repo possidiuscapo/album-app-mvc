@@ -1,4 +1,6 @@
-<?php ?>
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,15 +16,16 @@
 </head>
 
 <body>
-
+    
     <div class="container">
-        <h1>Liste des albums</h1>
+        <!-- <h1>Liste des albums</h1> -->
         <div class="container">
             <h2>Modifier un album</h2>
-            <form action="" method="post">
-                <input type="text" class="form-control" name="title" placeholder="Titre de l'album"><br>
-                <input type="text" class="form-control" name="artist" placeholder="Nom de l'artiste"><br>
-                <input type="submit" class="btn btn-primary" name="submit">
+            <form action="/update" method="post">
+                <input type="hidden" name="id"  value='<?= $album[':id'] ?>'><br>
+                <input type="text" class="form-control" name="title"  value="<?= $album['title'] ?>"><br>
+                <input type="text" class="form-control" name="artiste"  value='<?= $album['artiste'] ?>'><br>
+                <input type="submit" class="btn btn-primary" name="submit" value="Modifer">
             </form>
         </div>
     </div>

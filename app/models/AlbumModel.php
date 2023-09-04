@@ -84,39 +84,46 @@ class AlbumModel
 
 
     // Méthode pour récupérer un album par son ID
-    public static function getAlbumById(int $id)
+    public static function getAlbumById($id)
     {
         // Code pour récupérer un album depuis la base de données par son ID
         $db = self::getConnexion();
         if ($db !== null) {
             try {
                 $sql = "SELECT title, artiste FROM albums WHERE id = :id";
-
                 $stmt = $db->prepare($sql);
-                
-                $stmt->execute();
-
+                $stmt->execute([":id" => $id]);
+                return $stmt->fetchAll()[0];
             } catch (\PDOException $err) {
                 echo 'Erreur: ' . $err->getMessage();
+                return [];
             }
         }
 
     }
 
     // Méthode pour mettre à jour un album (UPDATE)
-    public static function updateAlbum(int $id, string $title, string $artist)
+    public static function updateAlbum( $id, $title, $artiste)
     {
         // Code pour mettre à jour un album dans la base de données
         $db = self::getConnexion();
         if ($db !== null) {
             try {
-                $sql = "UPDATE `albums` SET `id`='?',`title`='?',`artiste`='?', WHERE 1";
+                $sql = "UPDATE albums
+                SET `title`=':title', `artiste`=':artiste' 
+                WHERE id = :id";
 
                 $stmt = $db->prepare($sql);
-                $stmt->execute();
+                $stmt->execute([
+                    ':id' => $id,
+                    ':title' => $title,
+                    ':artiste' => $artiste,
+                    ]);
+                return $stmt;
 
             } catch (\PDOException $err) {
                 echo 'Erreur: ' . $err->getMessage();
+                // return false;
             }
         }
 
@@ -129,13 +136,14 @@ class AlbumModel
         $db = self::getConnexion();
         if ($db !== null) {
             try {
-                $sql = "DELETE FROM `albums` WHERE albums.id = :id";
+                $sql = "DELETE FROM `albums` WHERE id = :id";
 
                 $stmt = $db->prepare($sql);
-                $stmt->execute();
-
+                $stmt->execute([':id' => $id] );
+                return ;
             } catch (\PDOException $err) {
                 echo 'Erreur: ' . $err->getMessage();
+                return false;
             }
         }
 

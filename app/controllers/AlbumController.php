@@ -12,6 +12,7 @@ class AlbumController
     }
     public function create(){
         // Afficher le formulaire de création d'album
+
     }
     public function store($title, $artiste){
         // Afficher la liste de tous les albums
@@ -20,14 +21,24 @@ class AlbumController
     public function show($id){
         // 
     }
-    public function edit($id){
-        // 
+    public function edit( $id){
+        // Permet de modifer l
+        $album = AlbumModel::getAlbumById($id);
+        require APP_ROOT . '/app/views/editAlbum.php';
     }
-    public function update($title, $artiste){
+    public function update( $id, $title, $artiste){
         // 
+        $album = AlbumModel::updateAlbum($id, $title, $artiste);
+        header("HTTP:/1.1 302 Found");
+        header("Location: /");
+        exit();
     }
-    public function destroy($id){
+    public function destroy(int $id){
         // 
+        AlbumModel::deleteAlbum($id);
+        header("HTTP:/1.1 302 Found");
+        header("Location: /");
+        exit();
     }
 
 

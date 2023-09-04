@@ -8,28 +8,50 @@ require "../app/controllers/AlbumController.php";
 
 $controller = new AlbumController();
 
-// echo APP_ROOT;
-/**$queryString = strpos($request, '?');
-if($queryString){
-    echo (strstr($request, 'action='));
-}*/ 
-
 $request = $_SERVER['REQUEST_URI'];
+// echo APP_ROOT;
+$queryString = strpos($request, '?');
+if ($queryString !== false) {
+    $request = substr($request, 0, $queryString);
+    // echo (strstr($request, 'action='));
+}
+
 
 // $controller->store($_POST['title'],$_POST['artiste']);
 
-if($request === '/'){
+if ($request === '/' || $request === "/home") {
     $controller->home();
-}elseif ($request === '/edit') {
-}elseif ($request === '/update') {
-}elseif ($request === '/delete') {
-}elseif ($request === '/add') {
-    print_r($_POST);
-    $controller->store($_POST['title'],$_POST['artiste']);
-    echo "envoie en cours";
-}else{
+
+} elseif ($request === '/edit') {
+    $id = (int) $_GET['id'];
+    $controller->edit($id);
+
+} elseif ($request === '/update') {
+    $id = (int) $_POST['id'];
+    $title = $_POST['title'];
+    $artist = $_POST['artiste'];
+    print_r($album);
+    $controller->update($id, $title, $artist);
+
+} elseif ($request === '/delete') {
+    $id = (int) $_GET["id"];
+    $controller->destroy($id);
+    // /delete/1='/'
+    // /delete?id=1
+    
+} elseif ($request === '/add') {
+    // print_r($_POST);
+    $controller->store($_POST['title'], $_POST['artiste']);
+    echo "";
+    header('HTTP:/1.1 302');
+    header('Location: /home');
+    exit();
+    // $controller->home();
+    // require(APP_ROOT . '/public/index.php');
+} else {
     echo ' ';
     require(APP_ROOT . '/app/views/pageNotFound.phtml');
+    spl_autoload_register();
 }
 // $controller
 // AlbumModel::getAlbums()
